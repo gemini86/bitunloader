@@ -1,6 +1,11 @@
 # bitunloader
 Unload number to a binary string array of bits, array of bools, object of bits, object of bools.
 Very usefull when working with modbus devices which use word data types. Often, modbus device manufactures use a single 16 bit word to represent up to 16 different boolean values according to the individual bits in the word. Accessing those individual bits is made easier by transforming the word into individual bits in a way what matches your coding style.
+
+<a href="https://www.buymeacoffee.com/NxcwUpD" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+## Installation:
+`npm install bitunloader`
 ## Use:
 bitunloader accepts two arguments:
 ### 1) Input to be converted.  *(required)*
