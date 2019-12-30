@@ -15,7 +15,8 @@
     "bool",
     "unpack",
     "unload",
-    "binary"
+    "binary",
+	"modbus"
   ],
   "author": "Rodney C",
   "license": "BSD-2-Clause",

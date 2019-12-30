@@ -4,7 +4,7 @@ const bitunloader = require('../src/bitunloader');
 describe('bitunloader() function', function() {
 
 	it('should output a binary string', function() {
-		let test = bitunloader(5, {mode:'string'});
+		let test = bitunloader(5);
 		test.should.be.a.String();
 		test.should.be.exactly('101');
 	});
@@ -30,52 +30,52 @@ describe('bitunloader() function', function() {
 	it('should output an object of bits', function() {
 		let test = bitunloader(5, {mode: 'object', type:'bit'});
 		test.should.be.an.Object();
-		test.should.have.ownProperty('0', 1);
-		test.should.have.ownProperty('1', 0);
-		test.should.have.ownProperty('2', 1);
+		test.should.have.ownProperty('b0', 1);
+		test.should.have.ownProperty('b1', 0);
+		test.should.have.ownProperty('b2', 1);
 	});
 
 	it('should output an object of bools', function() {
 		let test = bitunloader(5, {mode: 'object', type:'bool'});
 		test.should.be.an.Object();
-		test.should.have.ownProperty('0', true);
-		test.should.have.ownProperty('1', false);
-		test.should.have.ownProperty('2', true);
+		test.should.have.ownProperty('b0', true);
+		test.should.have.ownProperty('b1', false);
+		test.should.have.ownProperty('b2', true);
 	});
 
 	it('should output the correct result length according to the optional padding parameter', function() {
-		let test = bitunloader(5, {mode:'string'}, 8);
+		let test = bitunloader(5, {mode:'string', padding: 8});
 		test.should.be.a.String();
 		test.should.have.length(8);
-		test = bitunloader(5, {mode: 'array', type:'bit'}, '8');
+		test = bitunloader(5, {mode: 'array', type:'bit', padding: '8'});
 		test.should.be.an.Array();
 		test.should.have.length(8);
-		test = bitunloader(5, {mode: 'object', type:'bool'}, '8');
+		test = bitunloader(5, {mode: 'object', type:'bool', padding: '16'});
 		test.should.be.an.Object();
-		Object.keys(test).should.have.length(8);
+		Object.keys(test).should.have.length(16);
 	});
 
 	it('should throw an error when called with no arguments', function() {
-		should(function() {bitunloader();}).throw('bitunloader() expects exactly two arguments');
+		should(function() {bitunloader();}).throw('Function expects at least one argument');
 	});
 
 	it('should throw an error when input is not a parsable number', function() {
 		let test = 'foo';
-		should(function () {bitunloader(test, {mode: 'string'});}).throw(`Argument is not a number or parsable string: ${test}`);
+		should(function () {bitunloader(test);}).throw(`Argument is not a number or parsable string: ${test}`);
 	});
 
 	it('should throw an error when called with invalid output mode argument', function() {
-		should(function () {bitunloader(5, 'this should be an object');}).throw('Output mode argument invalid: must be an object with \'mode\' property set to \'string\', \'array\', or \'object\'.');
+		should(function () {bitunloader(5, 'this should be an object');}).throw('Options argument invalid: \'this should be an object\' is not a valid object. Options argument must be an Object');
 	});
 
 	it('should throw an error when called with output mode argument with invalid values', function() {
-		should(function () {bitunloader(5, {mode:'array', type:'bot'});}).throw(`Output mode argument invalid: Type: '${'bot'}' is not valid, must be 'bit' or 'bool' for Array output mode.`);
-		should(function () {bitunloader(5, {mode:'object', type:'boll'});}).throw(`Output mode argument invalid: Type: '${'boll'}' is not valid, must be 'bit' or 'bool' for Object output mode.`);
+		should(function () {bitunloader(5, {mode:'array', type:'bot'});}).throw(`Options argument invalid: Type: '${'bot'}' is not valid, must be 'bit' or 'bool' for Array output mode.`);
+		should(function () {bitunloader(5, {mode:'object', type:'boll'});}).throw(`Options argument invalid: Type: '${'boll'}' is not valid, must be 'bit' or 'bool' for Object output mode.`);
 	});
 
 	it('should throw an error when optional \'padding\' argument is not a parsable number', function() {
-		should(function () {bitunloader(5, {mode: 'string'}, 'NaN');}).throw(`Argument is not a number or parsable string: ${'NaN'}`);
-		should(function () {bitunloader(5, {mode: 'string'}, '8');}).not.throw();
+		should(function () {bitunloader(5, {mode: 'string', padding: 'NaN'});}).throw(`Argument is not a number or parsable string: ${'NaN'}`);
+		should(function () {bitunloader(5, {mode: 'string', padding: '8'});}).not.throw();
 	});
 
 });
