@@ -22,6 +22,8 @@ module.exports = function bitunloader(input, options = {mode: 'string', padding:
 		throw new Error(`Options argument invalid: '${options}' is not a valid object. Options argument must be an Object`);
 	}
 
+	options.mode = options.mode || 'string';
+
 	if (options.padding) {
 		checkInput(options.padding);
 	} else {
