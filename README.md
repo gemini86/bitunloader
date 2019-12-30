@@ -42,7 +42,7 @@ Object mode:
 
 	bitunloader(2, {mode: 'object', type: 'bool'}) //result will be {b0: false, b1: true}
 ### Example optional padding
-Pad to 16 bits
+Pad to 16 bits:
 	
 	bitunloader(1277, {mode: 'string', padding: 16}) //result will be ''0000010011111101'
 	bitunloader(69420, {padding: 8}) //result will be '10000111100101100' (still 17 bits long)
