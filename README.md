@@ -45,4 +45,7 @@ Object mode:
 Pad to 16 bits:
 	
 	bitunloader(1277, {mode: 'string', padding: 16}) //result will be ''0000010011111101'
+
+Pad to 8 bits on a 17 bit number:
+
 	bitunloader(69420, {padding: 8}) //result will be '10000111100101100' (still 17 bits long)
