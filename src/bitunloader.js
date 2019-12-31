@@ -18,6 +18,60 @@ module.exports = function bitunloader(input, options = {mode: 'string', padding:
 
 	input = checkInput(input);
 
+	var mode = {
+		string: function() {
+			return input.toString(2).padStart(options.padding, '0');
+		},
+		array: function() {
+			let type = {
+				bit: function() {
+					let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
+					for (var i in result) {
+						result[i] = Number(result[i]);
+					}
+					return result;
+				},
+				bool: function() {
+					let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
+					for (let i in result) {
+						result[i] = result[i] == '1' ? true : false;
+					}
+					return result;
+				}
+			};
+			if (!type.hasOwnProperty(options.type)) {
+				throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Array output mode.`);
+			} else {
+				return type[options.type]();
+			}
+		},
+		object: function() {
+			let type = {
+				bit: function() {
+					input = input.toString(2).padStart(options.padding, '0').split('').reverse();
+					let result = {};
+					for (let i in input) {
+						result[`b${i}`] = Number(input[i]);
+					}
+					return result;
+				},
+				bool: function() {
+					input = input.toString(2).padStart(options.padding, '0').split('').reverse();
+					let result = {};
+					for (let i in input) {
+						result[`b${i}`] = input[i] == '1' ? true : false;
+					}
+					return result;
+				}
+			};
+			if (!type.hasOwnProperty(options.type)) {
+				throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Object output mode.`);
+			} else {
+				return type[options.type]();
+			}
+		}
+	};
+
 	if (typeof options != 'object') {
 		throw new Error(`Options argument invalid: '${options}' is not a valid object. Options argument must be an Object`);
 	}
@@ -29,44 +83,8 @@ module.exports = function bitunloader(input, options = {mode: 'string', padding:
 	} else {
 		options.padding = 0;
 	}
-
-	if (options.mode === 'string') {
-		return input.toString(2).padStart(options.padding, '0');
-	} else if (options.mode === 'array') {
-		if (options.type == 'bit') {
-			let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
-			for (var i in result) {
-				result[i] = Number(result[i]);
-			}
-			return result;
-		} else if (options.type == 'bool') {
-			let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
-			for (let i in result) {
-				result[i] = result[i] == '1' ? true : false;
-			}
-			return result;
-		} else {
-			throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Array output mode.`);
-		}
-	} else if (options.mode === 'object') {
-		if (options.type == 'bit') {
-			input = input.toString(2).padStart(options.padding, '0').split('').reverse();
-			let result = {};
-			for (let i in input) {
-				result[`b${i}`] = Number(input[i]);
-			}
-			return result;
-		} else if ( options.type == 'bool') {
-			input = input.toString(2).padStart(options.padding, '0').split('').reverse();
-			let result = {};
-			for (let i in input) {
-				result[`b${i}`] = input[i] == '1' ? true : false;
-			}
-			return result;
-		} else {
-			throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Object output mode.`);
-		}
-	} else {
+	if (!mode.hasOwnProperty(options.mode)) {
 		throw new Error(`Options argument invalid: '${options.mode}' is not a valid mode property.`);
 	}
+	return mode[options.mode](input);
 };

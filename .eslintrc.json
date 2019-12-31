@@ -37,7 +37,7 @@
 		],
 		"complexity": [
 			"warn",
-			10
+			6
 		]
     }
 }
