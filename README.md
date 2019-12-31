@@ -29,31 +29,31 @@ bitunloader accepts two arguments:
 String mode:
 
 	bitunloader(5, {mode: 'string'}); //result will be '101'
-	
+
 Or simply:
 
 	bitunloader(100); //result will be '1100100'
-	
+
 Array mode:
 
-	bitunloader(3, {mode: 'array', type: 'bit'}) 
+	bitunloader(3, {mode: 'array', type: 'bit'})
 	//result will be [1,1]
-	
+
 Object mode:
 
-	bitunloader(2, {mode: 'object', type: 'bool'}) 
+	bitunloader(2, {mode: 'object', type: 'bool'})
 	//result will be {b0: false, b1: true}
-	
+
 ### Example optional padding:
 Pad to 16 bits:
-	
-	bitunloader(1277, {mode: 'string', padding: 16}) 
+
+	bitunloader(1277, {mode: 'string', padding: 16})
 	//result will be ''0000010011111101'
 
 Pad to 8 bits on a 17 bit number:
 
-	bitunloader(69420, {padding: 8}) 
+	bitunloader(69420, {padding: 8})
 	//result will be '10000111100101100' (still 17 bits long)
 ## Roadmap:
 * Be able to handle negative numbers
-* Reduce code complexity
+* ~~Reduce code complexity~~
