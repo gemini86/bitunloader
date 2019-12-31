@@ -2,7 +2,7 @@
   "name": "bitunloader",
   "version": "1.1.0",
   "description": "Unload number to a binary string array of bits, array of bools, object of bits, object of bools.",
-  "main": "/src/bitunloader.js",
+  "main": "src/bitunloader.js",
   "scripts": {
     "test": "mocha \"test/bitunloader_spec.js\""
   },
