@@ -1,19 +1,19 @@
 module.exports = function bitunloader(input, options = {mode: 'string', padding: 0}) {
-	if (input == undefined){
-		throw new Error('Function expects at least one argument');
-	}
-
 	function checkInput(input) {
 		if (Number.isInteger(input)) {
 			return Math.abs(input);
 		} else {
-			let result = parseInt(input);
+			let result = Math.abs(input);
 			if (isNaN(result)) {
 				throw new Error(`Argument is not a number or parsable string: ${input}`);
 			} else {
-				return Math.abs(result);
+				return result;
 			}
 		}
+	}
+
+	if (input == undefined){
+		throw new Error('Function expects at least one argument');
 	}
 
 	input = checkInput(input);
