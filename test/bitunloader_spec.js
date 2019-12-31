@@ -62,6 +62,9 @@ describe('bitunloader() function', function() {
 	it('should throw an error when input is not a parsable number', function() {
 		let test = 'foo';
 		should(function () {bitunloader(test);}).throw(`Argument is not a number or parsable string: ${test}`);
+		test = [5,1000];
+		should(function () {bitunloader(test);}).throw(`Argument is not a number or parsable string: ${test}`);
+
 	});
 
 	it('should throw an error when called with invalid output mode argument', function() {
