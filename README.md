@@ -56,4 +56,4 @@ Pad to 8 bits on a 17 bit number:
 	//result will be '10000111100101100' (still 17 bits long)
 ## Roadmap:
 * Be able to handle negative numbers
-* ~~Reduce code complexity~~
+* ~~Reduce code complexity~~ Done
