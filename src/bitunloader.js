@@ -3,7 +3,7 @@ module.exports = function bitunloader(input, options = {mode: 'string', padding:
 		if (isNaN(input)) {
 			throw new Error(`Argument is not a number or parsable string: ${input}`);
 		} else {
-			let result = Math.abs(input);
+			let result = Math.abs(parseInt(input));
 			return result;
 		}
 	}
