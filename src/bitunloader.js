@@ -1,14 +1,10 @@
 module.exports = function bitunloader(input, options = {mode: 'string', padding: 0}) {
 	function checkInput(input) {
-		if (Number.isInteger(input)) {
-			return Math.abs(input);
+		if (isNaN(input)) {
+			throw new Error(`Argument is not a number or parsable string: ${input}`);
 		} else {
 			let result = Math.abs(input);
-			if (isNaN(result)) {
-				throw new Error(`Argument is not a number or parsable string: ${input}`);
-			} else {
-				return result;
-			}
+			return result;
 		}
 	}
 
