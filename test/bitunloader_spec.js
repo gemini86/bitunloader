@@ -55,6 +55,18 @@ describe('bitunloader() function', function() {
 		Object.keys(test).should.have.length(16);
 	});
 
+	it('should handle negative numbers', function() {
+		let test = bitunloader(-5);
+		test.should.be.a.String();
+		test.should.be.exactly('101');
+	});
+
+	it('should process only whole numbers', function() {
+		let test = bitunloader(5.5);
+		test.should.be.a.String();
+		test.should.be.exactly('101');
+	});
+
 	it('should throw an error when called with no arguments', function() {
 		should(function() {bitunloader();}).throw('Function expects at least one argument');
 	});
@@ -64,7 +76,8 @@ describe('bitunloader() function', function() {
 		should(function () {bitunloader(test);}).throw(`Argument is not a number or parsable string: ${test}`);
 		test = [5,1000];
 		should(function () {bitunloader(test);}).throw(`Argument is not a number or parsable string: ${test}`);
-
+		test = [[[100]]];
+		should(function () {bitunloader(test);}).not.throw();
 	});
 
 	it('should throw an error when called with invalid output mode argument', function() {
