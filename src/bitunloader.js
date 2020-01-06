@@ -15,55 +15,58 @@ module.exports = function bitunloader(input, options = {mode: 'string', padding:
 	input = checkInput(input);
 
 	var mode = {
-		string: function() {
+		_toArray: function(input) {
+			return mode.string(input).split('').reverse();
+		},
+		string: function(input) {
 			return input.toString(2).padStart(options.padding, '0');
 		},
 		array: function() {
 			let type = {
-				bit: function() {
-					let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
-					for (var i in result) {
-						result[i] = Number(result[i]);
-					}
+				bit: function(input) {
+					let result = mode._toArray(input);
+					result.forEach((value, index) => {
+						result[index] = Number(value);
+					});
 					return result;
 				},
-				bool: function() {
-					let result = input.toString(2).padStart(options.padding, '0').split('').reverse();
-					for (let i in result) {
-						result[i] = result[i] == '1' ? true : false;
-					}
+				bool: function(input) {
+					let result = mode._toArray(input);
+					result.forEach((value, index) => {
+						result[index] = value == true;
+					});
 					return result;
 				}
 			};
 			if (!type.hasOwnProperty(options.type)) {
 				throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Array output mode.`);
 			} else {
-				return type[options.type]();
+				return type[options.type](input);
 			}
 		},
 		object: function() {
 			let type = {
-				bit: function() {
-					input = input.toString(2).padStart(options.padding, '0').split('').reverse();
+				bit: function(input) {
+					input = mode._toArray(input);
 					let result = {};
-					for (let i in input) {
-						result[`b${i}`] = Number(input[i]);
-					}
+					input.forEach((value, index) => {
+						result[`b${index}`] = Number(value);
+					});
 					return result;
 				},
-				bool: function() {
-					input = input.toString(2).padStart(options.padding, '0').split('').reverse();
+				bool: function(input) {
+					input = mode._toArray(input);
 					let result = {};
-					for (let i in input) {
-						result[`b${i}`] = input[i] == '1' ? true : false;
-					}
+					input.forEach((value, index) => {
+						result[`b${index}`] = value == true;
+					});
 					return result;
 				}
 			};
 			if (!type.hasOwnProperty(options.type)) {
 				throw new Error(`Options argument invalid: Type: '${options.type}' is not valid, must be 'bit' or 'bool' for Object output mode.`);
 			} else {
-				return type[options.type]();
+				return type[options.type](input);
 			}
 		}
 	};
