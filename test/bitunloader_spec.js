@@ -59,6 +59,10 @@ describe('bitunloader() function', function() {
 		let test = bitunloader(-5);
 		test.should.be.a.String();
 		test.should.be.exactly('101');
+		test = bitunloader(-5, {signed:true, padding: 100});
+		test.should.be.a.String();
+		test.should.be.exactly('1000000000000101');
+		should(function() {bitunloader(65000, {signed:true});}).throw('For signed mode, input must be between -32767 and 32767');
 	});
 
 	it('should process only whole numbers', function() {
