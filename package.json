@@ -1,6 +1,6 @@
 {
   "name": "bitunloader",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Unload number to a binary string array of bits, array of bools, object of bits, object of bools.",
   "main": "src/bitunloader.js",
   "scripts": {
@@ -19,14 +19,14 @@
     "modbus",
     "word"
   ],
-  "author": "Rodney C",
+  "author": "gemini86",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/gemini86/bitunloader/issues"
   },
   "homepage": "https://github.com/gemini86/bitunloader#readme",
   "devDependencies": {
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.0",
     "should": "^13.2.3"
   }
 }

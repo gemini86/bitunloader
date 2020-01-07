@@ -1,5 +1,5 @@
 # bitunloader
-`v1.2.0`
+`v1.2.1`
 
 Unload a number to a binary string array of bits, array of bools, object of bits, object of bools.
 Very usefull when working with modbus devices which use word data types. Often, modbus device manufactures use a single 16 bit word to represent up to 16 different boolean values according to the individual bits in the word. Accessing those individual bits is made easier by transforming the word into individual bits in a way what matches your coding style.
